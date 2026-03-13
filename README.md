@@ -1,10 +1,10 @@
 # Vless-all-In-One多协议代理一键部署脚本
 
-[![GitHub Stars](https://img.shields.io/github/stars/Chil30/vless-all-in-one?style=flat-square&logo=github)](https://github.com/Chil30/vless-all-in-one/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/Chil30/vless-all-in-one?style=flat-square&logo=github)](https://github.com/Chil30/vless-all-in-one/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/Chil30/vless-all-in-one?style=flat-square&logo=github)](https://github.com/Chil30/vless-all-in-one/issues)
-[![GitHub License](https://img.shields.io/github/license/Chil30/vless-all-in-one?style=flat-square)](https://github.com/Chil30/vless-all-in-one/blob/main/LICENSE)
-[![GitHub Downloads](https://img.shields.io/github/downloads/Chil30/vless-all-in-one/total?style=flat-square&logo=github)](https://github.com/Chil30/vless-all-in-one/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/fulltimehunter/vless-all-in-one?style=flat-square&logo=github)](https://github.com/fulltimehunter/vless-all-in-one/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/fulltimehunter/vless-all-in-one?style=flat-square&logo=github)](https://github.com/fulltimehunter/vless-all-in-one/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/fulltimehunter/vless-all-in-one?style=flat-square&logo=github)](https://github.com/fulltimehunter/vless-all-in-one/issues)
+[![GitHub License](https://img.shields.io/github/license/fulltimehunter/vless-all-in-one?style=flat-square)](https://github.com/fulltimehunter/vless-all-in-one/blob/main/LICENSE)
+[![GitHub Downloads](https://img.shields.io/github/downloads/fulltimehunter/vless-all-in-one/total?style=flat-square&logo=github)](https://github.com/fulltimehunter/vless-all-in-one/releases)
 
 一个简单易用的多协议代理部署脚本，支持 **15 种主流协议**，服务端/客户端一键安装，适用于 Alpine、Debian、Ubuntu、CentOS 等 Linux 发行版。
 
@@ -114,7 +114,7 @@
 ### 一键安装服务端
 
 ```bash
-wget -O vless-server.sh https://raw.githubusercontent.com/Chil30/vless-all-in-one/main/vless-server.sh && chmod +x vless-server.sh && ./vless-server.sh
+wget -O vless-server.sh https://raw.githubusercontent.com/fulltimehunter/vless-all-in-one/main/vless-server.sh && chmod +x vless-server.sh && ./vless-server.sh
 ```
 
 ### 服务端安装
@@ -134,7 +134,7 @@ vless
 
 ### 客户端脚本
 
-Linux 客户端脚本已移至 [Releases](https://github.com/Chil30/vless-all-in-one/releases) 页面下载。
+Linux 客户端脚本已移至 [Releases](https://github.com/fulltimehunter/vless-all-in-one/releases) 页面下载。
 
 ---
 
@@ -384,8 +384,8 @@ vless → 9) CF Tunnel(Argo)
 ```
 ═════════════════════════════════════════════
       多协议代理 一键部署  [服务端]
-      作者: Chil30  快捷命令: vless
-      https://github.com/Chil30/vless-all-in-one
+      作者: fulltimehunter  快捷命令: vless
+      https://github.com/fulltimehunter/vless-all-in-one
 ═════════════════════════════════════════════
   服务端管理
   系统: ubuntu | 架构: Xray+Sing-box 双核
@@ -616,4 +616,4 @@ MIT License
 
 ## 📈 Star 历史
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Chil30/vless-all-in-one&type=Date)](https://star-history.com/#Chil30/vless-all-in-one&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=fulltimehunter/vless-all-in-one&type=Date)](https://star-history.com/#fulltimehunter/vless-all-in-one&Date)
