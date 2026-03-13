@@ -13,15 +13,15 @@
 #  适配: Alpine/Debian/Ubuntu/CentOS
 #  
 #  
-#  作者: Chil30
-#  项目地址: https://github.com/Chil30/vless-all-in-one
+#  作者: fulltimehunter
+#  项目地址: https://github.com/fulltimehunter/vless-all-in-one
 #═══════════════════════════════════════════════════════════════════════════════
 
 readonly VERSION="3.4.10"
-readonly AUTHOR="Chil30"
-readonly REPO_URL="https://github.com/Chil30/vless-all-in-one"
-readonly SCRIPT_REPO="Chil30/vless-all-in-one"
-readonly SCRIPT_RAW_URL="https://raw.githubusercontent.com/Chil30/vless-all-in-one/main/vless-server.sh"
+readonly AUTHOR="fulltimehunter"
+readonly REPO_URL="https://github.com/fulltimehunter/vless-all-in-one"
+readonly SCRIPT_REPO="fulltimehunter/vless-all-in-one"
+readonly SCRIPT_RAW_URL="https://raw.githubusercontent.com/fulltimehunter/vless-all-in-one/main/vless-server.sh"
 readonly CFG="/etc/vless-reality"
 readonly ACME_DEFAULT_EMAIL="acme@vaio.com"
 
