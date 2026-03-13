@@ -8,9 +8,6 @@
 
 一个简单易用的多协议代理部署脚本，支持 **15 种主流协议**，服务端/客户端一键安装，适用于 Alpine、Debian、Ubuntu、CentOS 等 Linux 发行版。
 
->📲 **推荐一个自用的 iOS SSH** ：
-
-> <img src="https://nicejwin.github.io/CareServerWebSite/assets/img/logo.png" height="50"> [CareServer](https://apps.apple.com/us/app/careserver/id6474921250) - 服务器实时监控(CPU/内存/磁盘) / 容器管理(Docker/Podman) / 端口转发(本地/远程/动态) / SFTP 文件管理 / 代理功能(SOCKS/HTTP) / 分组管理
 ## ✨ 支持协议
 
 | # | 协议 | 特点 | 推荐场景 | 抗检测评级 | 风险提示 |
@@ -528,49 +525,6 @@ apk add curl jq unzip iproute2 nginx
 ├── backup/               # 配置备份目录
 └── logs/                 # 日志目录
 ```
-
----
-
-## ☕ 支持项目
-
-> 🎭 **生活不易，赛博卖艺**
-
-如果这个脚本对你有帮助，欢迎通过以下方式支持：
-
-- ⭐ 给项目点个 **Star**，这是最大的鼓励！
-- 🖥️ 通过下方推荐链接 **购买服务器**，你获得优惠我获得返佣。
-- 💬 加入 [Telegram 群组](https://t.me/vless_vaio) 交流反馈
-
-### 购买服务器
-
-| 服务商 | 特点 | 链接 |
-|--------|------|------|
-| **VIP Cloud** | 原生IP / 解锁流媒体 / CN2GIA | [购买](https://www.vipcloud.cc/aff/QXUUKZSH) |
-| **Aether Cloud** | 原生IP / IPv6家宽 / 高性价比 | [购买](https://billing.aethercloud.io?ref=Ers87GElwp) |
-| **AkileCloud** | 多地区 / SOCKS5落地 / 家宽 IP | [购买](https://akile.io/register?aff_code=b349580b-113a-4b42-ab76-c2db81c5c22d) |
-| **YT.NET** | 原生IP / 深港节点 / BGP国际网络 | [购买](https://cloud.yt.net/?ref=13192) |
-| **lain.sh** | 原生IP / 解锁流媒体 / 家宽 ISP | [购买](https://dash.lain.sh?ref=Charonlio) |
-| **CstoneCloud** | 住宅双ISP / 解锁流媒体 / 直连&五网回程9929 | [购买](https://www.cstonecloud.com/aff.php?aff=358) |
-| **SkylineConnect** | 软银/Lumen / 大陆优化 / 大流量服务器 | [购买](https://www.skylineconnect.io/signup?aff=01CC63AP) |
-| **Geelinx** | 解锁流媒体 / 大陆优化 / 单向带宽计费 | [购买](https://www.geelinx.com/aff/HLGCSMDN) |
-
-### 🎁 RoxyBrowser 指纹浏览器 - 专属链接注册享 10% 优惠，👆 点击图片注册
-
-<a href="https://roxybrowser.com?code=0128SUFA" target="_blank"> <img src="https://roxybrowser.com/banner_picture_new/link_c/zh/728_90_1x.png" alt="https://roxybrowser.com?code=0128SUFA" srcset="https://roxybrowser.com/banner_picture_new/link_c/zh/728_90_1x.png 1x, https://roxybrowser.com/banner_picture_new/link_c/zh/728_90_2x.png 2x"> </a>
-
----
-## 🙏 致谢
-
-### 灵感来源
-- [mack-a/v2ray-agent](https://github.com/mack-a/v2ray-agent) - 八合一共存脚本
-
-### 核心组件
-- [XTLS/Xray-core](https://github.com/XTLS/Xray-core) - 代理核心引擎
-- [SagerNet/sing-box](https://github.com/SagerNet/sing-box) - Sing-box 核心
-- [apernet/hysteria](https://github.com/apernet/hysteria) - Hysteria2 协议
-- [EAimTY/tuic](https://github.com/EAimTY/tuic) - TUIC 协议
-- [ihciah/shadow-tls](https://github.com/ihciah/shadow-tls) - ShadowTLS 协议
-- [ViRb3/wgcf](https://github.com/ViRb3/wgcf) - WARP WireGuard 配置生成
 
 ---
 
