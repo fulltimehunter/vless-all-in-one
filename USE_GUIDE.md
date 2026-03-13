@@ -39,7 +39,7 @@
 ### 安装脚本
 
 ```bash
-wget -O vless-server.sh https://raw.githubusercontent.com/Chil30/vless-all-in-one/main/vless-server.sh && bash vless-server.sh
+wget -O vless-server.sh https://raw.githubusercontent.com/fulltimehunter/vless-all-in-one/main/vless-server.sh && bash vless-server.sh
 ```
 
 ### 运行脚本
@@ -54,7 +54,7 @@ vless
 ```
 ═════════════════════════════════════════════
       多协议代理 一键部署  [服务端]
-      作者: Chil30  快捷命令: vless
+      作者: fulltimehunter  快捷命令: vless
 ═════════════════════════════════════════════
   服务端管理
   系统: ubuntu | 架构: Xray+Sing-box 双核
