@@ -1260,6 +1260,168 @@ db_get_expired_users() {
 }
 
 #═══════════════════════════════════════════════════════════════════════════════
+# 新增模块：修改节点参数 (SNI / Path / Domain 等)
+#═══════════════════════════════════════════════════════════════════════════════
+modify_node_params() {
+    clear
+    _header
+    echo -e "  ${W}修改节点参数${NC}"
+    _line
+    
+    # 1. 获取已安装协议
+    local installed=$(get_installed_protocols)
+    if [[ -z "$installed" ]]; then
+        _warn "当前没有安装任何协议"
+        _pause
+        return
+    fi
+    
+    # 2. 交互选择协议
+    local -a protocols=()
+    local i=1
+    for p in $installed; do
+        protocols+=("$p")
+        echo -e "  ${G}${i}${NC}) $(get_protocol_name "$p") (${p})"
+        ((i++))
+    done
+    echo -e "  ${G}0${NC}) 返回主菜单"
+    echo ""
+    
+    read -rp "  请选择要修改的协议 [0-$((i-1))]: " p_choice
+    [[ "$p_choice" == "0" || -z "$p_choice" || ! "$p_choice" =~ ^[0-9]+$ || "$p_choice" -ge "$i" ]] && return
+    
+    local target_proto="${protocols[$((p_choice-1))]}"
+    
+    # 确定核心类型
+    local core="xray"
+    if [[ " $SINGBOX_PROTOCOLS " == *" $target_proto "* ]]; then
+        core="singbox"
+    fi
+    
+    # 3. 选择端口 (处理多端口实例)
+    local ports=$(db_list_ports "$core" "$target_proto")
+    local target_port=""
+    local port_count=$(echo "$ports" | wc -l)
+    
+    if [[ "$port_count" -gt 1 ]]; then
+        echo ""
+        echo -e "  ${Y}该协议有多个端口实例，请选择要修改的端口：${NC}"
+        local -a port_arr=()
+        local j=1
+        for pt in $ports; do
+            port_arr+=("$pt")
+            echo -e "  ${G}${j}${NC}) 端口 ${pt}"
+            ((j++))
+        done
+        read -rp "  请选择 [1-$((j-1))]: " pt_choice
+        if [[ "$pt_choice" =~ ^[0-9]+$ && "$pt_choice" -ge 1 && "$pt_choice" -le "$((j-1))" ]]; then
+            target_port="${port_arr[$((pt_choice-1))]}"
+        else
+            _err "无效选择"
+            _pause
+            return
+        fi
+    else
+        target_port=$(echo "$ports" | head -n1)
+    fi
+    
+    # 获取原始 JSON 配置
+    local cfg=$(db_get_port_config "$core" "$target_proto" "$target_port")
+    if [[ -z "$cfg" || "$cfg" == "null" ]]; then
+        _err "获取配置失败"
+        _pause
+        return
+    fi
+    
+    # 4. 进入参数修改循环
+    local changed="false"
+    while true; do
+        clear
+        _header
+        echo -e "  ${W}正在修改: ${C}$(get_protocol_name "$target_proto")${NC} (端口: ${target_port})"
+        _line
+        
+        local sni=$(echo "$cfg" | jq -r '.sni // empty')
+        local path=$(echo "$cfg" | jq -r '.path // empty')
+        local host=$(echo "$cfg" | jq -r '.host // empty')
+        local domain=$(echo "$cfg" | jq -r '.domain // empty')
+        
+        local -A options
+        local idx=1
+        
+        if [[ -n "$sni" ]]; then
+            echo -e "  ${G}${idx}${NC}) 修改 SNI / 伪装域名  (当前: ${C}${sni}${NC})"
+            options[$idx]="sni"
+            ((idx++))
+        fi
+        if [[ -n "$host" ]]; then
+            echo -e "  ${G}${idx}${NC}) 修改 Host 头        (当前: ${C}${host}${NC})"
+            options[$idx]="host"
+            ((idx++))
+        fi
+        if [[ -n "$domain" ]]; then
+            echo -e "  ${G}${idx}${NC}) 修改 Domain         (当前: ${C}${domain}${NC})"
+            options[$idx]="domain"
+            ((idx++))
+        fi
+        if [[ -n "$path" ]]; then
+            echo -e "  ${G}${idx}${NC}) 修改 Path / 路径    (当前: ${C}${path}${NC})"
+            options[$idx]="path"
+            ((idx++))
+        fi
+        
+        if [[ $idx -eq 1 ]]; then
+            _warn "该协议没有可供快速修改的文本参数项。"
+            _pause
+            break
+        fi
+        
+        echo -e "  ${G}0${NC}) 完成修改并应用"
+        echo ""
+        read -rp "  请选择要修改的项 [0-$((idx-1))]: " opt_choice
+        
+        if [[ "$opt_choice" == "0" ]]; then
+            break
+        fi
+        
+        local field="${options[$opt_choice]}"
+        if [[ -n "$field" ]]; then
+            read -rp "  请输入新的 ${field} 值: " new_val
+            if [[ -n "$new_val" ]]; then
+                # 用 jq 将新值安全地注入原 JSON 结构
+                cfg=$(echo "$cfg" | jq --arg v "$new_val" '.[$field] = $v')
+                changed="true"
+                _ok "已准备将 $field 更新为 $new_val"
+                sleep 1
+            fi
+        fi
+    done
+    
+    # 5. 应用并重启服务
+    if [[ "$changed" == "true" ]]; then
+        _info "正在保存配置并重启服务..."
+        # 回写到 db.json
+        db_update_port "$core" "$target_proto" "$target_port" "$cfg"
+        
+        # 调用脚本内置方法重建并重启
+        if [[ "$core" == "xray" ]]; then
+            rebuild_and_reload_xray "silent"
+        else
+            rebuild_and_reload_singbox "silent"
+        fi
+        
+        # 清理之前生成的旧静态链接缓存，避免读取到老的分享链接
+        rm -f "/etc/vless-reality/${target_proto}.join" 2>/dev/null
+        
+        _ok "节点参数已成功更新并生效！"
+        _warn "请手动在客户端（如 v2rayN/Clash）中同步修改这些参数。"
+    else
+        _info "未做任何修改"
+    fi
+    _pause
+}
+
+#═══════════════════════════════════════════════════════════════════════════════
 #  Telegram 通知功能
 #═══════════════════════════════════════════════════════════════════════════════
 
